@@ -7,6 +7,8 @@ import {withAppProvider, WithAppProviderProps} from '../AppProvider';
 import UnstyledLink from '../UnstyledLink';
 import Icon from '../Icon';
 
+import WithinBannerContext from '../WithinBannerContext';
+
 import styles from './Link.scss';
 
 export interface BaseProps {
@@ -36,7 +38,6 @@ function Link({
   monochrome,
   polaris,
 }: CombinedProps) {
-  const className = classNames(styles.Link, monochrome && styles.monochrome);
   let childrenMarkup = children;
 
   if (external && typeof children === 'string') {
