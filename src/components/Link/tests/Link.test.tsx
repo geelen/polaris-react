@@ -1,5 +1,6 @@
 import React from 'react';
 import {mountWithAppProvider} from 'test-utilities/legacy';
+import BannerContext from 'utilities/banner-context';
 import {UnstyledLink, Icon} from 'components';
 import en from '../../../../locales/en.json';
 import Link from '../Link';
@@ -79,6 +80,44 @@ describe('<Link />', () => {
         </Link>,
       );
       expect(link.find(Icon).exists()).toBe(false);
+    });
+  });
+
+  describe('monochrome link', () => {
+    it('outputs a monochrome unstyled link if rendered within a banner', () => {
+      const link = mountWithAppProvider(
+        <BannerContext.Provider value>
+          <Link url="https://examp.le">Some content</Link>
+        </BannerContext.Provider>,
+      ).find(UnstyledLink);
+
+      expect(link.hasClass('monochrome')).toBe(true);
+    });
+
+    it('does not output a monochrome unstyled link if it is not rendered within a banner', () => {
+      const link = mountWithAppProvider(
+        <Link url="https://examp.le">Some content</Link>,
+      ).find(UnstyledLink);
+
+      expect(link.hasClass('monochrome')).toBe(false);
+    });
+
+    it('outputs a monochrome button if rendered within a banner', () => {
+      const button = mountWithAppProvider(
+        <BannerContext.Provider value>
+          <Link>Some content</Link>
+        </BannerContext.Provider>,
+      ).find('button');
+
+      expect(button.hasClass('monochrome')).toBe(true);
+    });
+
+    it('does not output a monochrome button if it is not rendered within a banner', () => {
+      const button = mountWithAppProvider(<Link>Some content</Link>).find(
+        'button',
+      );
+
+      expect(button.hasClass('monochrome')).toBe(false);
     });
   });
 });
