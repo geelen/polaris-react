@@ -5,8 +5,6 @@ import {UnstyledLink, Icon} from 'components';
 import en from '../../../../locales/en.json';
 import Link from '../Link';
 
-import WithinBannerContext from '../../WithinBannerContext';
-
 describe('<Link />', () => {
   it('calls onClick when clicking', () => {
     const spy = jest.fn();
