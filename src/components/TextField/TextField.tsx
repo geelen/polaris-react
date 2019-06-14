@@ -461,7 +461,10 @@ class TextField extends React.PureComponent<CombinedProps, State> {
   };
 
   private handleFocus = ({target}: React.FocusEvent) => {
-    if (this.containsAffix(target)) return;
+    if (this.containsAffix(target)) {
+      return;
+    }
+
     this.setState({focus: true});
   };
 
@@ -470,7 +473,10 @@ class TextField extends React.PureComponent<CombinedProps, State> {
   };
 
   private handleClick = ({target}: React.MouseEvent) => {
-    if (this.containsAffix(target)) return;
+    if (this.containsAffix(target)) {
+      return;
+    }
+
     this.input.focus();
   };
 
