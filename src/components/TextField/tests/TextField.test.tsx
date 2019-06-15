@@ -329,6 +329,28 @@ describe('<TextField />', () => {
       expect(textField.find(`#${labels[1]}`).text()).toBe('$');
       expect(textField.find(`#${labels[2]}`).text()).toBe('.00');
     });
+
+    it('does not set focus `onClick` for the <input /> if the `target` is the `prefix`', () => {
+      const onClickSpy = jest.fn();
+      const mockButtonId = 'MockPrefix';
+      const mockPrefixButton = (
+        <button id={mockButtonId} onClick={onClickSpy} />
+      );
+      const textField = mountWithAppProvider(
+        <TextField
+          label="TextField"
+          prefix={mockPrefixButton}
+          onChange={noop}
+        />,
+      );
+
+      textField.find(`#${mockButtonId}`).simulate('click');
+
+      expect(onClickSpy).toHaveBeenCalled();
+      expect(textField.getDOMNode().querySelector('input')).not.toBe(
+        document.activeElement,
+      );
+    });
   });
 
   describe('suffix', () => {
@@ -343,6 +365,28 @@ describe('<TextField />', () => {
       expect(labels).toHaveLength(2);
       expect(textField.find(`#${labels[0]}`).text()).toBe('TextField');
       expect(textField.find(`#${labels[1]}`).text()).toBe('kg');
+    });
+
+    it('does not set focus `onClick` for the <input /> if the `target` is the `suffix`', () => {
+      const onClickSpy = jest.fn();
+      const mockButtonId = 'MockSuffix';
+      const mockSuffixButton = (
+        <button id={mockButtonId} onClick={onClickSpy} />
+      );
+      const textField = mountWithAppProvider(
+        <TextField
+          label="TextField"
+          suffix={mockSuffixButton}
+          onChange={noop}
+        />,
+      );
+
+      textField.find(`#${mockButtonId}`).simulate('click');
+
+      expect(onClickSpy).toHaveBeenCalled();
+      expect(textField.getDOMNode().querySelector('input')).not.toBe(
+        document.activeElement,
+      );
     });
   });
 
@@ -842,6 +886,38 @@ describe('<TextField />', () => {
       expect(textField.find(Connected).prop('right')).toStrictEqual(
         connectedRight,
       );
+    });
+
+    it('sets focus to the <input /> `onClick`', () => {
+      const textField = mountWithAppProvider(
+        <TextField label="TextField" onChange={noop} />,
+      );
+      const connectedChild = textField
+        .find(Connected)
+        .find('div')
+        .first();
+
+      connectedChild.simulate('click');
+
+      expect(textField.getDOMNode().querySelector('input')).toBe(
+        document.activeElement,
+      );
+    });
+
+    // TODO: Figure out how to test for this
+    // eslint-disable-next-line jest/no-disabled-tests
+    it.skip('applies focus variant style `onFocus`', () => {
+      const textField = mountWithAppProvider(
+        <TextField label="TextField" onChange={noop} />,
+      );
+      const connectedChild = textField
+        .find(Connected)
+        .find('div')
+        .first();
+
+      connectedChild.simulate('focus');
+
+      // expect state.focus to be `true` and class to be applied
     });
   });
 

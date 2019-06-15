@@ -313,9 +313,11 @@ class TextField extends React.PureComponent<CombinedProps, State> {
     }
 
     const labelledBy: string[] = [];
+
     if (prefix) {
       labelledBy.push(`${id}Prefix`);
     }
+
     if (suffix) {
       labelledBy.push(`${id}Suffix`);
     }
