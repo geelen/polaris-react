@@ -1,7 +1,6 @@
 import React from 'react';
 import {mountWithAppProvider} from 'test-utilities/legacy';
-import BannerContext from 'utilities/banner-context';
-import {UnstyledLink, Icon} from 'components';
+import {Banner, UnstyledLink, Icon} from 'components';
 import en from '../../../../locales/en.json';
 import Link from '../Link';
 
@@ -86,9 +85,9 @@ describe('<Link />', () => {
   describe('monochrome link', () => {
     it('outputs a monochrome unstyled link if rendered within a banner', () => {
       const link = mountWithAppProvider(
-        <BannerContext.Provider value>
+        <Banner>
           <Link url="https://examp.le">Some content</Link>
-        </BannerContext.Provider>,
+        </Banner>,
       ).find(UnstyledLink);
 
       expect(link.hasClass('monochrome')).toBe(true);
@@ -104,9 +103,9 @@ describe('<Link />', () => {
 
     it('outputs a monochrome button if rendered within a banner', () => {
       const button = mountWithAppProvider(
-        <BannerContext.Provider value>
+        <Banner>
           <Link>Some content</Link>
-        </BannerContext.Provider>,
+        </Banner>,
       ).find('button');
 
       expect(button.hasClass('monochrome')).toBe(true);

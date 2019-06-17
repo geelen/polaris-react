@@ -147,11 +147,9 @@ describe('<Banner />', () => {
       };
 
       const banner = mountWithAppProvider(
-        <BannerContext.Provider value>
-          <Banner>
-            <Child />
-          </Banner>
-        </BannerContext.Provider>,
+        <Banner>
+          <Child />
+        </Banner>,
       );
 
       const div = banner
